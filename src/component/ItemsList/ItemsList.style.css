@@ -1,0 +1,21 @@
+.ItemsWrapper {
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    background-color: white;
+    padding: 0.2rem 1.5rem;
+    border-radius: 5%;
+}
+
+.ItemWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ItemWrapper p {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: black;
+}
