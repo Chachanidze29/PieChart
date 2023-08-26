@@ -35,6 +35,7 @@ export const pieChartReducer = (items: PieChartItem[], action: Action) => {
             }
 
             if (items.length > 5) {
+                alert("Items Length shouldn't be higher than 5");
                 return items;
             }
 
