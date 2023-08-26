@@ -1,10 +1,8 @@
-import { PieChartItem } from "../reducer/PieChart.reducer";
+import { useContext } from "../context/context";
 
-type PieChartProps = {
-    items: PieChartItem[]
-}
+const PieChart = () => {
+    const { items } = useContext();
 
-const PieChart = (items: PieChartProps) => {
     return (
         <h1>PieChart isn't implemented yet</h1>
     )

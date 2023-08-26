@@ -1,28 +1,24 @@
 import { useState } from 'react';
 
 import './ItemsList.style.css';
+import { useContext } from '../context/context';
 
-import { PieChartItem } from '../reducer/PieChart.reducer';
 
-type ItemListProps = {
-    items: PieChartItem[],
-    onRemoveItem: (id: number) => void
-}
-
-const ItemsList = ({ items, onRemoveItem }: ItemListProps) => {
+const ItemsList = () => {
     const [isHidden, setIsHidden] = useState(false);
+    const { items, handleRemoveItem } = useContext();
 
     return (
         <div className='ItemsList'>
-            <h1>Items List</h1>
             {
                 (items.length !== 0 || isHidden) && (
                     <div className="ItemsWrapper">
-                        {items.map(({ itemName, id }) => (
+                        {items.map(({ itemName, id, itemPercentage }) => (
                             <div key={id} className="ItemWrapper">
                                 <p>{id}.</p>
                                 <p>{itemName}</p>
-                                <button type="button" onClick={() => onRemoveItem(id)}>Remove</button>
+                                <p>{itemPercentage}%</p>
+                                <button type="button" onClick={() => handleRemoveItem(id)}>Remove</button>
                             </div>
                         ))}
                     </div>

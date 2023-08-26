@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 
 import './CustomForm.style.css';
 import { PieChartItem } from "../reducer/PieChart.reducer";
+import { useContext } from "../context/context";
 
 const initialItem: PieChartItem = {
     itemName: '',
@@ -9,12 +10,9 @@ const initialItem: PieChartItem = {
     id: 0
 };
 
-type CustomFormProps = {
-    onAddItem: (item: PieChartItem) => void
-}
-
-const CustomForm = ({ onAddItem }: CustomFormProps) => {
+const CustomForm = () => {
     const [item, setItem] = useState(initialItem);
+    const { handleAddItem } = useContext();
 
     const handleChange = (e: FormEvent) => {
         const { name, value } = (e.target as HTMLInputElement);
@@ -26,7 +24,7 @@ const CustomForm = ({ onAddItem }: CustomFormProps) => {
 
     const handleSubmit = () => {
         setItem(initialItem);
-        onAddItem(item);
+        handleAddItem(item);
     }
 
     return (
