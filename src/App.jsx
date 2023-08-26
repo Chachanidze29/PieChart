@@ -15,7 +15,7 @@ const reducer = (items, action) => {
             }]
         }
         case 'remove': {
-            return items.filter((item)=> item.id !== action.itemId)
+            return items.filter((item) => item.id !== action.itemId)
         }
         default: {
             throw Error('Unknown action: ' + action.type);
