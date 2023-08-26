@@ -2,7 +2,14 @@ import { useState } from 'react';
 
 import './ItemsList.style.css';
 
-const ItemsList = ({ items, onRemoveItem }) => {
+import { PieChartItem } from '../reducer/PieChart.reducer';
+
+type ItemListProps = {
+    items: PieChartItem[],
+    onRemoveItem: (id: number) => void
+}
+
+const ItemsList = ({ items, onRemoveItem }: ItemListProps) => {
     const [isHidden, setIsHidden] = useState(false);
 
     return (
@@ -13,9 +20,9 @@ const ItemsList = ({ items, onRemoveItem }) => {
                     <div className="ItemsWrapper">
                         {items.map(({ itemName, id }) => (
                             <div key={id} className="ItemWrapper">
-                                <p>{ id }.</p>
-                                <p>{ itemName }</p>
-                                <button type="button" onClick={()=>onRemoveItem(id)}>Remove</button>
+                                <p>{id}.</p>
+                                <p>{itemName}</p>
+                                <button type="button" onClick={() => onRemoveItem(id)}>Remove</button>
                             </div>
                         ))}
                     </div>

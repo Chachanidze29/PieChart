@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import './CustomForm.style.css';
+import { PieChartItem } from "../reducer/PieChart.reducer";
 
-const initialItem = {
+const initialItem: PieChartItem = {
     itemName: '',
-    itemPercentage: 0
+    itemPercentage: 0,
+    id: 0
 };
 
-const CustomForm = ({ onAddItem }) => {
+type CustomFormProps = {
+    onAddItem: (item: PieChartItem) => void
+}
+
+const CustomForm = ({ onAddItem }: CustomFormProps) => {
     const [item, setItem] = useState(initialItem);
 
-    const handleChange = e => {
-        const { name, value } = e.target;
+    const handleChange = (e: FormEvent) => {
+        const { name, value } = (e.target as HTMLInputElement);
         setItem({
             ...item,
             [name]: value
