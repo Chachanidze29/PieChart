@@ -1,6 +1,5 @@
 # PieChart
 
-Simple PieChart using react
-Status: IN PROGRESS
+Simple PieChart
 
-created react application via vite
+React(TS), React-MUI, Context API
