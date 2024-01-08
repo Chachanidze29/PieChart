@@ -1,17 +1,17 @@
 import React from "react";
 
 export const createContext = <T extends {}>() => {
-    const Context = React.createContext<T | undefined>(undefined);
+  const Context = React.createContext<T | undefined>(undefined);
 
-    const useContext = () => {
-        const colorContext = React.useContext(Context);
+  const useContext = () => {
+    const colorContext = React.useContext(Context);
 
-        if (colorContext === undefined) {
-            throw new Error('Value must be specified');
-        }
-
-        return colorContext;
+    if (colorContext === undefined) {
+      throw new Error("Value must be specified");
     }
 
-    return [useContext, Context.Provider] as const;
-}
+    return colorContext;
+  };
+
+  return [useContext, Context.Provider] as const;
+};

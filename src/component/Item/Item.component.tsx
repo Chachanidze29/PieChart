@@ -1,17 +1,36 @@
 import { useContext } from "../context/context";
 import { PieChartItem } from "../reducer/PieChart.reducer";
 
-export const Item = ({ id, itemName, itemPercentage }: PieChartItem) => {
-    const { handleRemoveItem } = useContext();
+import Button from "@mui/material/Button";
 
-    return (
-        <div key={id} className="ItemWrapper">
-            <p>{id}.</p>
-            <p>{itemName}</p>
-            <p>{itemPercentage}%</p>
-            <button type="button" onClick={() => handleRemoveItem(id)}>Remove</button>
-        </div>
-    )
-}
+export type PieChartItemProps =
+  | PieChartItem & {
+      index: string;
+    };
+
+export const Item = ({
+  id,
+  itemName,
+  itemPercentage,
+  index,
+}: PieChartItemProps) => {
+  const { handleRemoveItem } = useContext();
+
+  return (
+    <div className="ItemWrapper">
+      <p>{index}.</p>
+      <p>{itemName}</p>
+      <p>{itemPercentage}%</p>
+      <Button
+        type="button"
+        variant="outlined"
+        color="success"
+        onClick={() => handleRemoveItem(id)}
+      >
+        Remove
+      </Button>
+    </div>
+  );
+};
 
 export default Item;

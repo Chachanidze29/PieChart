@@ -1,45 +1,31 @@
 import { useContext } from "../context/context";
 
-import './PieChart.style.css';
+import { PieChart as MuiPieChart } from "@mui/x-charts/PieChart";
 
-const colors = [
-    '#FF5733',
-    '#2ECC71',
-    '#3498DB',
-    '#E74C3C',
-    '#9B59B6'
-];
+import "./PieChart.style.css";
 
 const PieChart = () => {
-    const { items } = useContext();
-    const totalPercentage = items.reduce((total, item) => total + item.itemPercentage, 0);
+  const { items } = useContext();
 
-    let startAngle = 0;
+  const transformedItems = items.map(({ id, itemName, itemPercentage }) => ({
+    id,
+    value: itemPercentage,
+    label: itemName,
+  }));
 
-    return (
-        <div className="PieChart">
-            {items.map((item, index) => {
-                const sliceAngle = (item.itemPercentage / totalPercentage) * 360;
-                const sliceStyle = {
-                    transform: `rotate(${startAngle}deg)`,
-                    background: colors[index],
-                };
-
-                startAngle += sliceAngle;
-
-                return (
-                    <div
-                        key={index}
-                        className="PieSlice"
-                        style={{
-                            ...sliceStyle,
-                            clipPath: `polygon(50% 50%, 100% 100%, 100% 0%)`,
-                        }}
-                    ></div>
-                );
-            })}
-        </div>
-    );
-}
+  return (
+    <div className="PieChartWrapper">
+      <MuiPieChart
+        series={[
+          {
+            data: transformedItems,
+          },
+        ]}
+        width={600}
+        height={400}
+      />
+    </div>
+  );
+};
 
 export default PieChart;

@@ -1,57 +1,63 @@
-
 export type PieChartItem = {
-    id: number
-    itemName: string,
-    itemPercentage: number
-}
+  id: string;
+  itemName: string;
+  itemPercentage: number;
+};
 
 export type AddAction = {
-    type: 'add',
-    payload: {
-        item: PieChartItem
-    }
-}
+  type: "add";
+  payload: {
+    item: PieChartItem;
+  };
+};
 
 export type RemoveAction = {
-    type: 'remove',
-    payload: {
-        itemId: number
-    }
-}
+  type: "remove";
+  payload: {
+    itemId: string;
+  };
+};
+
+export type State = {
+  percentageSum: number;
+  items: PieChartItem[];
+};
 
 export type Action = AddAction | RemoveAction;
 
-export const initialItems: PieChartItem[] = [];
+export const initialState = {
+  percentageSum: 0,
+  items: [],
+};
 
-export const pieChartReducer = (items: PieChartItem[], action: Action) => {
-    switch (action.type) {
-        case 'add': {
-            const { item } = action.payload;
-
-            const totalPercentage = items.reduce((total, item) => total + item.itemPercentage, 0) + item.itemPercentage;
-            if (totalPercentage > 100) {
-                alert("Sum of percentages shouldn't be more than 100");
-                return items;
-            }
-
-            if (items.length > 5) {
-                alert("Items Length shouldn't be higher than 5");
-                return items;
-            }
-
-            return [...items, {
-                id: item.id,
-                itemName: item.itemName,
-                itemPercentage: item.itemPercentage
-            }]
-        }
-        case 'remove': {
-            return items.filter((item) => item.id !== action.payload.itemId)
-        }
-        default: {
-            throw Error('Unknown action');
-        }
+export const pieChartReducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "add": {
+      return {
+        ...state,
+        percentageSum:
+          Number(state.percentageSum) +
+          Number(action.payload.item.itemPercentage),
+        items: [...state.items, action.payload.item],
+      };
     }
-}
+    case "remove": {
+      const item = state.items.find(
+        (item) => item.id === action.payload.itemId
+      );
+
+      return {
+        ...state,
+        percentageSum: item
+          ? Number(state.percentageSum) - Number(item.itemPercentage)
+          : 0,
+        items: state.items.filter((item) => item.id !== action.payload.itemId),
+      };
+    }
+    default: {
+      throw Error("Unknown action");
+    }
+  }
+};
 
 export default pieChartReducer;
